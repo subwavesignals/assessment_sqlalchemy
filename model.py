@@ -48,10 +48,10 @@ class Model(db.Model):
 
     
     def __repr__(self):
-    """Provide helpful representation when printed."""
+        """Provide helpful representation when printed."""
 
-    representation = "<Model model_id=%s name=%s year=%s brand_id=%s>"
-    return representation % (self.model_id, self.name, self.year, self.brand_id)
+        representation = "<Model model_id=%s name=%s year=%s brand_id=%s>"
+        return representation % (self.model_id, self.name, self.year, self.brand_id)
 
 # End Part 1
 
