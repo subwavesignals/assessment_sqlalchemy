@@ -17,7 +17,19 @@ class Brand(db.Model):
 
     __tablename__ = "brands"
 
-    pass
+    brand_id = db.Column(db.String(5), primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    founded = db.Column(db.Integer)
+    headquarters = db.Column(db.String(50))
+    discontinued = db.Column(db.Integer)
+
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        # Only non-nullable fields have been chosen to prevent confusion
+        representation = "<Brand brand_id=%s name=%s>"
+        return representation % (self.brand_id, self.name)
 
 
 class Model(db.Model):
@@ -25,7 +37,21 @@ class Model(db.Model):
 
     __tablename__ = "models"
 
-    pass
+    model_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    year = db.Column(db.Integer, nullable=False)
+    brand_id = db.Column(db.String(5),
+                         db.ForeignKey("brands.brand_id"),
+                         nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+
+    brand = db.relationship("Brand", backref="models")
+
+    
+    def __repr__(self):
+    """Provide helpful representation when printed."""
+
+    representation = "<Model model_id=%s name=%s year=%s brand_id=%s>"
+    return representation % (self.model_id, self.name, self.year, self.brand_id)
 
 # End Part 1
 
