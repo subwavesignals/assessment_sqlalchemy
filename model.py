@@ -44,7 +44,7 @@ class Model(db.Model):
                          nullable=False)
     name = db.Column(db.String(50), nullable=False)
 
-    brand = db.relationship("Brand", backref="models")
+    brand = db.relationship("Brand", backref=db.backref("models"))
 
     
     def __repr__(self):

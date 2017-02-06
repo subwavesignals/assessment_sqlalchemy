@@ -84,26 +84,48 @@ def get_model_info(year):
     """Takes in a year and prints out each model name, brand name, and brand
     headquarters for that year using only ONE database query."""
 
-    pass
+    data = db.session.query(Model.name, Brand.name, Model.brand_id).join(Brand)
+    correct_year = data.filter(Model.year == year).all()
+
+    for triple in correct_year:
+        print("Model: %s \t Brand name: %s \t Brand ID: %s" 
+              % (triple[0], triple[1], triple[2]))
 
 
 def get_brands_summary():
     """Prints out each brand name and each model name with year for that brand
     using only ONE database query."""
 
-    pass
+    data = Brand.query.all()
+
+    for brand in data:
+        print "Brand name: %s" % brand.name
+        models = brand.models
+        for model in models:
+            print "\t Model: %s \t Year: %s" % (model.name, model.year)
+
 
 
 def search_brands_by_name(mystr):
     """Returns all Brand objects corresponding to brands whose names include
     the given string."""
 
-    pass
+    data = Brand.query.filter(Brand.name.like('%' + mystr + '%')).all()
+
+    for brand in data:
+        print brand
+
+    return data
 
 
 def get_models_between(start_year, end_year):
     """Returns all Model objects corresponding to models made between
     start_year (inclusive) and end_year (exclusive)."""
 
-    pass
+    data = Model.query.filter(Model.year >= start_year, Model.year < end_year).all()
+
+    for model in data:
+        print model
+
+    return data
 
